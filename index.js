@@ -3,14 +3,14 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-const connecToDataBase = require("./src/database/connect");
+const connectToDataBase = require("./src/database/connect");
 
-connecToDataBase();
+connectToDataBase();
 
 // require('./modules/path')
 // require('./modules/fs')
 // // require('./modules/http')
 
-// require('./modules/')
+require('./modules/express')
 
 // const person = new Person('Marcelo');

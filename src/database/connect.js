@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const connecToDataBase = async () => {
+const connectToDataBase = async () => {
   try {
     await mongoose.connect(
       `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@nodejs.ozv73qb.mongodb.net/database?retryWrites=true&w=majority&appName=NodeJS`
@@ -11,4 +11,4 @@ const connecToDataBase = async () => {
   }
 };
 
-module.exports = connecToDataBase;
+module.exports = connectToDataBase;
