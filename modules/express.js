@@ -5,40 +5,64 @@ const app = express();
 
 app.use(express.json());
 
-//pegar todos os useres
+//pegar todos os users
 app.get("/users", async (req, res) => {
-  try{
+  try {
     const users = await UserModel.find({});
 
     res.status(200).json(users);
-  } catch (error){
+  } catch (error) {
     res.status(500).send(error.message);
-
   }
-
 });
 //pegar o user por id
 app.get("/users/:id", async (req, res) => {
-  try{
+  try {
     const id = req.params.id;
 
-    const user = await UserModel.findById(id)
+    const user = await UserModel.findById(id);
 
-    return res.status(200).json(user)
-  }catch(error){
-         res.status(500).send(error.message);
+    return res.status(200).json(user);
+  } catch (error) {
+    res.status(500).send(error.message);
   }
-})
+});
 //criar user
 app.post("/users", async (req, res) => {
   try {
     const user = await UserModel.create(req.body);
     res.status(201).json(user);
-
   } catch (error) {
     res.status(500).send(error.message);
   }
 });
+
+//atualizar algum campo
+app.patch("/users/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const user = await UserModel.findByIdAndUpdate(id, req.body, { new: true });
+
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+//delete
+app.delete("/users/:id", async (req, res)=> {
+  try{
+    const id = req.params.id;
+    const user = await UserModel.findByIdAndDelete(id)
+
+    res.status(200).json(user);
+
+  } catch (error){
+    res.status(500).send(error.message)
+
+  }
+
+})
 
 const port = 8080;
 
