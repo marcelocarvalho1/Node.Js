@@ -6,7 +6,8 @@ const app = express();
 app.use(express.json());
 
 app.set("view engine", "ejs");
-app.set('views', '..src/views');
+app.set('views', 'src/views');
+
 //middlewares
 app.use((req, res, next) =>{
 console.log(`Request Type: ${req.method}`)
@@ -16,7 +17,9 @@ next();
 } )
 
 app.get('/view/users', async (req, res)=> {
-  res.render("index");
+ const users = await UserModel.find({})
+
+  res.render("index", {users});
 })
 
 //pegar todos os users
