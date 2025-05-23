@@ -5,6 +5,20 @@ const app = express();
 
 app.use(express.json());
 
+app.set("view engine", "ejs");
+app.set('views', '..src/views');
+//middlewares
+app.use((req, res, next) =>{
+console.log(`Request Type: ${req.method}`)
+
+next();
+
+} )
+
+app.get('/view/users', async (req, res)=> {
+  res.render("index");
+})
+
 //pegar todos os users
 app.get("/users", async (req, res) => {
   try {
