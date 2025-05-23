@@ -3,12 +3,14 @@ const UserModel = require("../src/models/user.models");
 
 const app = express();
 
+//Middlewares
 app.use(express.json());
 
+//Middleware para fazer o parse de requisições JSON
 app.set("view engine", "ejs");
 app.set('views', 'src/views');
 
-//middlewares
+//Define EJS como mecanismo de template para renderização de views
 app.use((req, res, next) =>{
 console.log(`Request Type: ${req.method}`)
 
@@ -16,13 +18,14 @@ next();
 
 } )
 
+// Renderização de view com EJS
 app.get('/view/users', async (req, res)=> {
  const users = await UserModel.find({})
 
   res.render("index", {users});
 })
 
-//pegar todos os users
+//Buscar todos os usuários
 app.get("/users", async (req, res) => {
   try {
     const users = await UserModel.find({});
@@ -32,7 +35,7 @@ app.get("/users", async (req, res) => {
     res.status(500).send(error.message);
   }
 });
-//pegar o user por id
+//Buscar usuário por ID
 app.get("/users/:id", async (req, res) => {
   try {
     const id = req.params.id;
@@ -44,7 +47,7 @@ app.get("/users/:id", async (req, res) => {
     res.status(500).send(error.message);
   }
 });
-//criar user
+//Criar um novo usuário
 app.post("/users", async (req, res) => {
   try {
     const user = await UserModel.create(req.body);
@@ -54,7 +57,7 @@ app.post("/users", async (req, res) => {
   }
 });
 
-//atualizar algum campo
+//Atualizar campos de um usuário
 app.patch("/users/:id", async (req, res) => {
   try {
     const id = req.params.id;
@@ -66,7 +69,7 @@ app.patch("/users/:id", async (req, res) => {
   }
 });
 
-//delete
+//Deletar usuário
 app.delete("/users/:id", async (req, res)=> {
   try{
     const id = req.params.id;
